@@ -1,17 +1,36 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Your Project Name",
+  "name": "Probe Docs",
   "colors": {
     "primary": "#0D9488",
     "light": "#075E54",
     "dark": "#111827"
   },
+  "redirects": [
+    { "source": "/", "destination": "/docs/index" }
+  ],
   "navigation": {
     "groups": [
       {
-        "group": "Getting Started",
-        "pages": ["index", "quickstart"]
+        "group": "Introduction",
+        "pages": ["docs/index", "docs/overview"]
+      },
+      {
+        "group": "System",
+        "pages": ["docs/architecture", "docs/hardware", "docs/integration", "docs/security"]
+      },
+      {
+        "group": "Applications",
+        "pages": ["docs/frontend-web", "docs/mobile"]
+      },
+      {
+        "group": "Development",
+        "pages": ["docs/code-standards", "docs/deployment", "docs/qa"]
+      },
+      {
+        "group": "Reference",
+        "pages": ["docs/glossary"]
       }
     ]
   }
