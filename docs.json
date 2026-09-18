@@ -1,5 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
   "name": "Your Project Name",
   "colors": {
     "primary": "#0D9488",
@@ -10,7 +11,7 @@
     "groups": [
       {
         "group": "Getting Started",
-        "pages": ["introduction", "quickstart"]
+        "pages": ["index", "quickstart"]
       }
     ]
   }
