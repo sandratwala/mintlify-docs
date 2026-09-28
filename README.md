@@ -1,55 +1,84 @@
-# Mintlify Starter Kit
+# Probe Technical Documentation (Mintlify)
 
-Use the starter kit to get your docs deployed and ready to customize.
+Technical documentation for **Probe**, a B2B battery-recycling platform, rebuilt on [Mintlify](https://mintlify.com) from the original GitHub Pages site.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Links
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+| Resource | URL |
+|---|---|
+| Published docs (Mintlify) | https://sandratwala.mintlify.site/docs/index |
+| Original docs (GitHub Pages) | https://akirachix.github.io/HERckers_Technical_Documentation/ |
+| System architecture diagram (Lucid) | https://lucid.app/lucidchart/7456fda0-595f-4455-a829-b33f54da52d1/edit |
+| MCP server | https://sandratwala.mintlify.site/mcp |
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+## What's covered
 
-## AI-assisted writing
+- **Architecture**: layers, components, and data flow across the web dashboard, mobile app, FastAPI backend, PostgreSQL, and the IoT pipeline
+- **Hardware & State of Health**: battery sensors, ESP32, HiveMQ MQTT, and the SoH calculation
+- **Backend**: API reference, authentication (JWT + RBAC), database schema, setup, deployment, and testing
+- **Applications**: Next.js web dashboard and Flutter mobile app
+- **Development**: code standards, deployment, and testing/QA
+- **Reference**: glossary
 
-Set up your AI coding tool to work with Mintlify:
+## Repository structure
+
+```
+mintlify-docs/
+├── docs.json            # Mintlify config and navigation
+├── favicon.svg
+├── docs/
+│   ├── index.md
+│   ├── overview.md
+│   ├── architecture.md
+│   ├── hardware.md
+│   ├── integration.md
+│   ├── security.md
+│   ├── frontend-web.md
+│   ├── mobile.md
+│   ├── code-standards.md
+│   ├── deployment.md
+│   ├── qa.md
+│   ├── glossary.md
+│   └── backend/         # api-reference, authentication, database,
+│                        # deployment, overview, setup, testing
+├── images/
+├── logo/
+└── .gemini/
+    └── settings.json    # Gemini CLI MCP connection
+```
+
+## Run locally
 
 ```bash
-npx skills add https://mintlify.com/docs
+npm i -g mint        # install the Mintlify CLI (once)
+mint dev             # preview at http://localhost:3000
+mint broken-links    # check for broken internal links
 ```
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+Pushing to `main` triggers an automatic rebuild and deploy on Mintlify.
 
-See the [AI tools guides](/ai-tools) for tool-specific setup.
+## MCP integration
 
-## Development
+Mintlify generates an MCP server automatically for published public docs. Connect Gemini CLI to it:
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
-npm i -g mint
+```bash
+gemini mcp add --transport http probe-docs https://sandratwala.mintlify.site/mcp
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+Authentication uses a Gemini API key set as an environment variable (never commit the key):
+
+```bash
+export GEMINI_API_KEY="your-key-here"
+```
+
+Then run `gemini` and ask a question about the docs. The `search_probe_docs` tool call confirms the MCP server is being used. To make sure it queries the server rather than reading local files, name it in the prompt:
 
 ```
-mint dev
+Using the probe-docs MCP server, search for how the database is structured.
 ```
 
-View your local preview at `http://localhost:3000`.
+## Contributing
 
-## Publishing changes
-
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+1. Edit or add pages under `docs/`
+2. Register new pages in the `navigation` section of `docs.json`
+3. Run `mint dev` and `mint broken-links` before pushing
