@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "probe-docs": {
+      "url": "https://sandratwala.mintlify.site/mcp",
+      "type": "http"
+    }
+  }
+}
